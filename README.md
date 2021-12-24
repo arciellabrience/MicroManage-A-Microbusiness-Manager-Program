@@ -1,5 +1,5 @@
 # MicroManage-A-Microbusiness-Manager-Program
-Software Design Laboratory (LBYCPD2) course using the Python programming language for the PostgreSQL database, the HTML and the CSS structural languages in the PyCharm software.
+Software Design Laboratory (LBYCPD2) course using the Python programming language for the PostgreSQL open source object-relational database system, and the HTML and CSS structural languages in the PyCharm software.
 
 **Version 1.8**
 
