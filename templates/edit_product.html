@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+</head>
+<body>
+<div>
+    <h1>EDIT PRODUCT DETAILS</h1>
+</div>
+<div>
+    <ul>
+        <table class="table">
+            {% for i in products %}
+                {% if i.user == request.user.username %}
+                <tr>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.itemType }}</td>
+                    <td>{{ i.sellPrice }}</td>
+                    <td>{{ i.user }}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'edit_product' i.id %}">Update</a></td>
+        {#        <td><a class="btn btn-sm btn-info" href="{% url 'edit_product' %}">Update</a></td>#}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        <li>Listed Products:</li>
+        <li>Product Type:</li>
+        <li>Selling Price:</li>
+        <li><a href="https://i.imgur.com/q71TZyx.gif">Next</a></li>  <!--Button-->
+    </ul>
+</div>
+<div>
+    <ul>
+        <li><a href="https://i.imgur.com/q71TZyx.gif">Logo</a></li>
+        <li><h6>CLP Softwares</h6></li>
+    </ul>
+</div>
+</body>
+</html>

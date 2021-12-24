@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raw Materials Database</title>
+    <link rel="stylesheet" href="{% static '/css/database.css' %}">
+</head>
+<body>
+<div class="filter">
+</div>
+<div>
+    <h1 style="font-family: 'Montserrat', sans-serif; text-align: center; margin: 20px auto">RAW MATERIALS DATABASE</h1>
+    <table class="table">
+    <tr>
+        <th>Product</th>
+        <th>Name</th>
+        <th>Material Type</th>
+        <th>Quantity</th>
+        <th>Unit Type</th>
+        <th>Total Cost</th>
+    </tr>
+    {% for i in raw %}
+        {% if i.user == request.user.username %}
+        <tr>
+            <td>{{ i.product }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.materialType }}</td>
+            <td>{{ i.quantity }}</td>
+            <td>{{ i.unitType }}</td>
+            <td>{{ i.totalCost }}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+</div>
+</body>
+</html>
+{% endblock %}

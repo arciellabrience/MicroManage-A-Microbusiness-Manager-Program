@@ -1,0 +1,538 @@
+{% extends "base.html" %}
+
+<!--SEE FORLOOP IN A TEMPLATE TUTORIAL FOR CHECKLIST OF RAW MATERIALS-->
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <title>Home | Business Name</title>
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+</head>
+<body>
+
+
+<br>
+<div class="column" style="border: 2px solid black; height: 85%; max-width: 26.6%">
+    <h2 style="text-align: center">Hello, {{ request.user }}</h2><br>
+    <a style="text-decoration: none; color: #4D4E50" href="{% url 'add_order' %}" class="ml-2">
+        <button class="linkbtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 12 12">
+              <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+            </svg>
+            ADD NEW TRANSACTION
+        </button>
+    </a>
+    <br>
+
+    <div class="dropdown">
+        <button class="dropbtn">PRODUCTS</button>
+        <div class="dropdown-elements">
+            <a href="{% url 'new_product' %}" class="ml-2">Add New Product</a>
+{#            <a href="{% url 'edit_product' product.id %}" class="ml-2">Edit Existing Product</a>#}
+{#            <a href="{% url 'edit_product' %}" class="ml-2">Edit Existing Product</a>#}
+            <a href="{% url 'view_edit_product' %}" class="ml-2">Edit Existing Product</a>
+            <a href="{% url 'view_delete_product' %}" class="ml-2">Delete Existing Product</a>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="dropdown">
+        <button class="dropbtn">RAW MATERIALS</button>
+        <div class="dropdown-elements">
+{#            <a href="{% url 'new_raw' %}" class="ml-2">Add New Raw Material</a>#}
+            <a href="{% url 'view_edit_raw' %}" class="ml-2">Edit Existing Raw Material</a>
+            <a href="{% url 'view_delete_raw' %}" class="ml-2">Delete Existing Raw Material</a>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="dropdown">
+        <button class="dropbtn">DATABASES</button>
+        <div class="dropdown-elements">
+            <a href="{% url 'sold_database' %}" class="ml-2">View Sold Items Database</a>
+            <a href="{% url 'products_database' %}" class="ml-2">View Existing Items Database</a>
+            <a href="{% url 'raw_database' %}" class="ml-2">View Raw Materials Database</a>
+        </div>
+    </div>
+    <br><br>
+    <h2 style="text-align: center">FAQ</h2>
+    <p style="font-family: 'Open Sans', sans-serif; margin: 5px"><strong>Q</strong>: Why can’t I add a raw material from the home page? </p>
+    <br>
+    <p  style="font-family: 'Open Sans', sans-serif; margin: 5px"><strong>A</strong>: Addition of raw materials is based on the product itself, therefore can only be done
+    through the addition of a product. This is to ensure nuances in the proper allocation of raw materials per product.</p>
+    <br>
+    <p style="font-family: 'Open Sans', sans-serif; text-align: center"><strong>Contact us:</strong> clp.softwares@gmail.com</p>
+</div>
+    <div style="left: 11%; position: absolute; bottom: 10px">
+        <a class="hello-message" href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+{#<div class="column" style="float: right; border: 2px solid black; width: 73%; height: 25%">#}
+{#    <h3 style="text-align: center; font-size: 20px; font-family: 'Montserrat', sans-serif">BUSINESS SUMMARY</h3>#}
+{#    <p>Most ordered product: {{ most }}</p>#}
+{#</div>#}
+
+<div id="datarep" style="min-height: 85%; z-index: -1">
+    <h3 style="text-align: center; font-size: 20px; font-family: 'Montserrat', sans-serif">DATA REPRESENTATION</h3>
+    <div>
+        <p>Gross Profit: {{ net }}</p>
+        <p>Total Tax: {{ TAX }}</p>
+        <p>Net Profit: {{ profit }}</p>
+    </div>
+{#    <div style="float: right;height: 300px; width: 308.5px; border: 1px solid blue;">#}
+{#        <canvas id="testLine"></canvas>#}
+{#        <h3 style="font-family: 'Open Sans', sans-serif">Placeholder</h3>#}
+{#    </div>#}
+    <div style="position: relative; float: left; height: 480px; width: 550px; border: 2px solid magenta">
+{#        <canvas id="pie"></canvas>#}
+        <br><br><br>
+        <canvas id="testPie"></canvas>
+        <span style="font-family: 'Open Sans', sans-serif; position: absolute; width: 100%; text-align: center; bottom: 0">Overall Product Transactions</span>
+            <br><br><br>
+        <div style="text-align: center; font-size: 30px">
+{#            <p><strong>Most ordered product:</strong> {{ most }}</p>#}
+        </div>
+    </div>
+    <div style="position: relative; float: right; height: 480px; width: 550px; border: 2px solid red">
+        <canvas id="testBar" height="240px"></canvas>
+        <span style="font-family: 'Open Sans', sans-serif; position: absolute; width: 100%; text-align: center; bottom: 0">Customer Order Frequency</span>
+    </div>
+{#    <div style="text-align: center; font-size: 30px">#}
+{#        <p><strong>CLP Softwares<br>©2019</strong></p>#}
+{#    </div>#}
+</div>
+
+  <script>
+     function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+      $(function () {
+          var ctx = document.getElementById("testBar").getContext('2d');
+          var data = {
+              datasets: [{
+                    data : {{ dataC|safe }},
+
+                  backgroundColor: [
+                      '#d32f2f', '#ff5722', '#ffff00', '#009688', '#42a5f5', '#ab47bc'
+                      {#fillPattern#}
+                      {#'#42a5f5', '#ab47bc'#}
+                  ]
+              }],
+              labels: [
+                  {% for i in labelsC %}
+                    "{{ i }}",
+                  {% endfor %}
+              ],
+          };
+
+          var myBar = new Chart(ctx, {
+              type: 'bar',
+              data: data,
+              options: {
+                  responsive: true,
+                  legend: {
+                      position: 'top',
+                      labels: {
+                          boxWidth: ''
+                      }
+                  },
+                  title: {
+                      display: false
+                  },
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          }
+                      }]
+                  },
+              }
+          })
+
+          var ctx_2 = document.getElementById("testPie").getContext('2d');
+            var data_2 = {
+                datasets: [{
+                    data: [
+                        {% for i in dataQ %}
+{#                        {%  for i in setCust %}#}
+                            "{{ i }}",
+                        {% endfor %}
+                    ],
+                    backgroundColor: [
+                        {#getRandomColor(),#}
+                        '#d32f2f', '#ff5722', '#ffff00', '#009688', '#42a5f5', '#ab47bc'
+                    ],
+                }],
+                labels: [
+                    {% for i in labelsQ %}
+{#                    {% for i in setDate %}#}
+                        "{{ i }}",
+                    {% endfor %}
+                ]
+            };
+            var myPie = new Chart(ctx_2, {
+                type: 'pie',
+                data: data_2,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 25,
+                        }
+                    }
+                }
+            });
+
+            var ctx_3 = document.getElementById("testLine").getContext('2d');
+            var data_3 = {
+                datasets: [{
+                    {#strokeColor: '#ACC26D',#}
+                    {#fillColor: "rgba(172, 194, 132, 0.4)",#}
+                    {#pointColor: "#fff",#}
+                    {#pointStrokeColor: "#9DB86D",#}
+                    data: [
+{#                        {% for i in setDate %}#}
+{#                            "{{ i }}",#}
+{#                        {% endfor %}#}
+                        {{ dateZ|safe }}
+                    ]
+
+                }],
+                labels: [
+{#                    {% for i in setCust %}#}
+{#                        "{{ i }}",#}
+{#                    {% endfor %}#}
+                    {{ custZ|safe }}
+                    ]
+                };
+            var myLine = new Chart(ctx_3, {
+                type: 'horizontalBar',
+                data: data_3,
+                options: {
+                    responsive: false,
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            boxWidth: ''
+                        }
+                    },
+                    title: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+      });
+
+
+            {#var blah = {#}
+            {#  type: 'pie',#}
+            {#  data: {#}
+            {#    datasets: [{#}
+            {#      data: {{ dataC|safe }},#}
+            {#      backgroundColor: [#}
+            {#        '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'#}
+            {#        '#d32f2f', '#ff5722', '#ffff00', '#009688', '#42a5f5', '#ab47bc'#}
+            {#      ],#}
+            {#      label: 'quantity'#}
+            {#    }],#}
+            {#    labels: {{ labelsC|safe }}#}
+            {#  },#}
+            {#  options: {#}
+            {#      responsive: true,#}
+            {#  }#}
+            {##}
+            {##}
+            {#window.onload = function() {#}
+            {#  var ctx = document.getElementById('pieC').getContext('2d');#}
+            {#  window.Pie = new Chart(ctx, blah);#}
+
+
+
+
+    {#var config = {#}
+    {#            type: 'pie',#}
+    {#            data: {#}
+    {#                datasets: [{#}
+    {#                    data: {{ dataQ|safe }},#}
+    {#                    backgroundColor: [#}
+                            {#'#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'#}
+    {#                        '#d32f2f', '#ff5722', '#ffff00', '#009688', '#42a5f5', '#ab47bc'#}
+    {##}
+    {#                    ],#}
+    {#                    label: 'Population'#}
+    {#                }],#}
+    {#                labels: {{ labelsQ|safe }}#}
+    {#            },#}
+    {#            options: {#}
+    {#                responsive: true#}
+    {#            }#}
+    {#        };#}
+    {##}
+    {#        window.onload = function () {#}
+    {#            const ctx = document.getElementById('pie').getContext('2d');#}
+    {#            window.myPie = new Chart(ctx, config);#}
+    {#        };#}
+    {##}
+    {#    var blah = {#}
+    {#            type: 'pie',#}
+    {#            data: {#}
+    {#                datasets: [{#}
+    {#                    data: {{ dataQ|safe }},#}
+    {#                    backgroundColor: [#}
+                            {#'#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'#}
+    {#                        '#d32f2f', '#ff5722', '#ffff00', '#009688', '#42a5f5', '#ab47bc'#}
+    {##}
+    {#                    ],#}
+    {#                    label: 'Population'#}
+    {#                }],#}
+    {#                labels: {{ labelsQ|safe }}#}
+    {#            },#}
+    {#            options: {#}
+    {#                responsive: true#}
+    {#            }#}
+    {#        };#}
+    {##}
+    {#        window.onload = function () {#}
+    {#            var cpx = document.getElementById('pieC').getContext('2d');#}
+    {#            window.myPie = new Chart(cpx, blah);#}
+    {#        };#}
+
+
+  </script>
+</body>
+
+      <script>
+
+    {#     $(function () {#}
+    {##}
+    {#  var $populationChart = $("#population-chart");#}
+    {#  $.ajax({#}
+    {#    url: $populationChart.data("url"),#}
+    {#    success: function (data) {#}
+    {##}
+    {#      var ctx = $populationChart[0].getContext("2d");#}
+    {##}
+    {#      new Chart(ctx, {#}
+    {#        type: 'bar',#}
+    {#        data: {#}
+    {#          labels: data.labels,#}
+    {#          datasets: [{#}
+    {#            label: 'Population',#}
+    {#            backgroundColor: 'blue',#}
+    {#            data: data.data#}
+    {#          }]#}
+    {#        },#}
+    {#        options: {#}
+    {#          responsive: true,#}
+    {#          legend: {#}
+    {#            position: 'top',#}
+    {#          },#}
+    {#          title: {#}
+    {#            display: true,#}
+    {#            text: 'Population Bar Chart'#}
+    {#          }#}
+    {#        }#}
+    {#      });#}
+    {##}
+    {#    }#}
+    {#  });#}
+    {##}
+
+
+
+    {# $(function () {#}
+    {##}
+    {#  var $populationChart = $("#home");#}
+    {#  $.ajax({#}
+    {#    url: $populationChart.data("url"),#}
+    {#    success: function (data) {#}
+    {##}
+    {#      var ctx = $populationChart[0].getContext("2d");#}
+    {##}
+    {#      new Chart(ctx, {#}
+    {#        type: 'bar',#}
+    {#        data: {#}
+    {#          labels: data.labelsC,#}
+    {#          datasets: [{#}
+    {#            label: 'Population',#}
+    {#            backgroundColor: 'blue',#}
+    {#            data: data.dataC#}
+    {#          }]#}
+    {#        },#}
+    {#        options: {#}
+    {#          responsive: true,#}
+    {#          legend: {#}
+    {#            position: 'top',#}
+    {#          },#}
+    {#          title: {#}
+    {#            display: true,#}
+    {#            text: 'Population Bar Chart'#}
+    {#          }#}
+    {#        }#}
+    {#      });#}
+    {##}
+    {#    }#}
+    {#  });#}
+    {##}
+
+
+
+
+    {#$(function () {/*from   w ww .  ja va2 s  . c o  m*/#}
+    {#        var ctx = document.getElementById("layanan").getContext('2d');#}
+    {#        var data = {#}
+    {#            datasets: [{#}
+    {#                data: [10, 20, 30],#}
+    {#                backgroundColor: [#}
+    {#                    '#3c8dbc',#}
+    {#                    '#f56954',#}
+    {#                    '#f39c12',#}
+    {#                ],#}
+    {#            }],#}
+    {#            labels: [#}
+    {#                data.labelsC#}
+    {#                {{ data.labelsC|safe }}#}
+    {#                'A', 'B,', 'C'#}
+    {#            ]#}
+    {#        };#}
+    {#        var myDoughnutChart = new Chart(ctx, {#}
+    {#            type: 'bar',#}
+    {#            data: data,#}
+    {#            options: {#}
+    {#                responsive: false,#}
+    {#                maintainAspectRatio: false,#}
+    {#                legend: {#}
+    {#                    position: 'bottom',#}
+    {#                    labels: {#}
+    {#                        boxWidth: 12#}
+    {#                    }#}
+    {#                },#}
+    {#            }#}
+    {#        });#}
+    {##}
+    {#        var ctx_2 = document.getElementById("layanan_subbagian").getContext('2d');#}
+    {#        var data_2 = {#}
+    {#            datasets: [{#}
+    {#                data: [10, 20, 30],#}
+    {#                backgroundColor: [#}
+    {#                    '#3c8dbc',#}
+    {#                    '#f56954',#}
+    {#                    '#f39c12',#}
+    {#                ],#}
+    {#            }],#}
+    {#            labels: [#}
+    {#                'Request',#}
+    {#                'Layanan',#}
+    {#                'Problem'#}
+    {#            ]#}
+    {#        };#}
+    {#        var myDoughnutChart_2 = new Chart(ctx_2, {#}
+    {#            type: 'doughnut',#}
+    {#            data: data_2,#}
+    {#            options: {#}
+    {#                responsive: false,#}
+    {#                maintainAspectRatio: false,#}
+    {#                legend: {#}
+    {#                    position: 'bottom',#}
+    {#                    labels: {#}
+    {#                        boxWidth: 12#}
+    {#                    }#}
+    {#                }#}
+    {#            }#}
+    {#        });#}
+    {#    });#}
+
+
+
+
+
+        {#$(function () {/*from   w ww .  ja va2 s  . c o  m*/#}
+        {#    var ctx = document.getElementById("layanan").getContext('2d');#}
+        {#    var data = {#}
+        {#        datasets: [{#}
+        {#            data: {{ data|safe }},#}
+        {#            backgroundColor: [#}
+        {#                '#3c8dbc',#}
+        {#                '#f56954',#}
+        {#                '#f39c12',#}
+        {#            ],#}
+        {#        }],#}
+        {#        labels: [#}
+        {#            {{ labels|safe }}#}
+        {#        ]#}
+        {#    };#}
+        {#    var myDoughnutChart = new Chart(ctx, {#}
+        {#        type: 'doughnut',#}
+        {#        data: data,#}
+        {#        options: {#}
+        {#            responsive: false,#}
+        {#            maintainAspectRatio: false,#}
+        {#            legend: {#}
+        {#                position: 'bottom',#}
+        {#                labels: {#}
+        {#                    boxWidth: 12#}
+        {#                },#}
+        {#            }#}
+        {#        }#}
+        {#    });#}
+{#            var ctx_2 = document.getElementById("layanan_subbagian").getContext('2d');#}
+{#            var data_2 = {#}
+{#                datasets: [{#}
+{#                    data: [10, 20, 30],#}
+{#                    backgroundColor: [#}
+{#                        '#3c8dbc',#}
+{#                        '#f56954',#}
+{#                        '#f39c12',#}
+{#                    ],#}
+{#                }],#}
+{#                labels: [#}
+{#                    'Request',#}
+{#                    'Layanan',#}
+{#                    'Problem'#}
+{#                ]#}
+{#            };#}
+{#            var myDoughnutChart_2 = new Chart(ctx_2, {#}
+{#                type: 'doughnut',#}
+{#                data: data_2,#}
+{#                options: {#}
+{#                    responsive: false,#}
+{#                    maintainAspectRatio: false,#}
+{#                    legend: {#}
+{#                        position: 'bottom',#}
+{#                        labels: {#}
+{#                            boxWidth: 12#}
+{#                        }#}
+{#                    }#}
+{#                }#}
+{#            });#}
+{#        });#}
+{##}
+      </script>
+
+</html>
+{% endblock %}

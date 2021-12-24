@@ -1,0 +1,231 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#    <style>#}
+{#        body {#}
+{#          background: #b71220!important;#}
+{#        }#}
+{##}
+{#        ul {#}
+{#          list-style: none;#}
+{#          text-align: center;#}
+{#        }#}
+{##}
+{#        ul > li > h1 {#}
+{#          color: white;#}
+{#        }#}
+{##}
+{#        body > div > div > div:nth-child(1) > ul > li:nth-child(1) > h1 {#}
+{#          font-size: 40px;#}
+{#        }#}
+{##}
+{#        canvas#myChart {#}
+{#          width: 80%!important;#}
+{#          height: 20%!important;#}
+{#          margin-top: 80px;#}
+{#        }#}
+{#    </style>#}
+{#    <script>#}
+{#        var lineChartData = {#}
+{#          labels: ["Data 1", "Data 2", "Data 3", "Data 4", "Data 5", "Data 6", "Data 7", "Data 7", "Data 7", "Data 7", "Data 5", "Data 2", "Data 4", "Data 1", "Data 7"],#}
+{#          datasets: [{#}
+{#            fillColor: "#560620",#}
+{#            strokeColor: "white",#}
+{#            strokeLineWidth: 18,#}
+{#            pointColor: "white",#}
+{#            data: [20, 90, 140, 25, 53, 67, 47, 98, 30, 80, 20, 40, 10, 60]#}
+{#          }]#}
+{#        };#}
+{##}
+{#        // this is data for the donut chart#}
+{#        var data = [{#}
+{#          value: 300,#}
+{#          color: "#560620",#}
+{#          highlight: "#560620",#}
+{#          label: "Red"#}
+{#        }, {#}
+{#          value: 50,#}
+{#          color: "#fff",#}
+{#          highlight: "#560620",#}
+{#          label: "Green"#}
+{#        }, {#}
+{#          value: 100,#}
+{#          color: "#560620",#}
+{#          highlight: "#560620",#}
+{#          label: "Yellow"#}
+{#        }];#}
+{##}
+{#        //this is data for the bar chart#}
+{##}
+{#        var barData = {#}
+{#          labels: ["January", "February", "March", "April", "May", "June", "July"],#}
+{#          datasets: [{#}
+{#            label: "My First dataset",#}
+{#            fillColor: "#560620",#}
+{#            strokeColor: "rgba(220,220,220,0.8)",#}
+{#            highlightFill: "#560620",#}
+{#            highlightStroke: "rgba(220,220,220,1)",#}
+{#            data: [65, 59, 80, 81, 56, 55, 40]#}
+{#          }, {#}
+{#            label: "My Second dataset",#}
+{#            fillColor: "#fff",#}
+{#            strokeColor: "rgba(151,187,205,0.8)",#}
+{#            highlightFill: "#fff",#}
+{#            highlightStroke: "rgba(151,187,205,1)",#}
+{#            data: [28, 48, 40, 19, 86, 27, 90]#}
+{#          }]#}
+{#        };#}
+{#        // these are some defaults you can use for customizing your charts#}
+{##}
+        {#Chart.defaults.global.responsive = true;#}
+        {#Chart.defaults.global.animationSteps = 50;#}
+        {#Chart.defaults.global.tooltipYPadding = 16;#}
+        {#Chart.defaults.global.tooltipCornerRadius = 0;#}
+        {#Chart.defaults.global.tooltipTitleFontStyle = "normal";#}
+        {#Chart.defaults.global.tooltipFillColor = "white";#}
+        {#Chart.defaults.global.animationEasing = "easeOutBounce";#}
+        {#Chart.defaults.global.scaleLineColor = "black";#}
+        {#Chart.defaults.global.scaleFontSize = 16;#}
+        {#Chart.defaults.global.showScale = false;#}
+        {#Chart.defaults.global.pointDotStrokeWidth = 2;#}
+{##}
+{#        // then i just duplicated the chart specific options#}
+{#        var ctx = document.getElementById("canvas").getContext("2d");#}
+{#        var LineChartDemo = new Chart(ctx).Line(lineChartData, {#}
+{#          pointDotRadius: 3,#}
+{#          bezierCurve: true,#}
+{#          datasetFill: true,#}
+{#          datasetStroke: true,#}
+{#          scaleShowVerticalLines: false,#}
+{#          scaleShowHorizontalLines: false,#}
+{#          pointDotStrokeWidth: 4,#}
+{#          fillColor: "rgba(220,220,220,0.2)",#}
+{#          scaleGridLineColor: "black"#}
+{#        });#}
+{##}
+{#        var cty = document.getElementById("myChart").getContext("2d");#}
+{#        var myDoughnutChart = new Chart(cty).Doughnut(data, {#}
+{#          pointDotRadius: 3,#}
+{#          bezierCurve: true,#}
+{#          datasetFill: true,#}
+{#          datasetStroke: true,#}
+{#          scaleShowVerticalLines: false,#}
+{#          scaleShowHorizontalLines: false,#}
+{#          pointDotStrokeWidth: 4,#}
+{#          fillColor: "rgba(220,220,220,0.2)",#}
+{#          scaleGridLineColor: "black"#}
+{#        });#}
+{##}
+{#        var ctl = document.getElementById("myChartbar").getContext("2d");#}
+{#        var myBarChart = new Chart(ctl).Bar(barData, {#}
+{#          pointDotRadius: 3,#}
+{#          bezierCurve: true,#}
+{#          datasetFill: true,#}
+{#          datasetStroke: true,#}
+{#          scaleShowVerticalLines: false,#}
+{#          scaleShowHorizontalLines: false,#}
+{#          pointDotStrokeWidth: 4,#}
+{#          fillColor: "rgba(220,220,220,0.2)",#}
+{#          scaleGridLineColor: "black"#}
+{#        });#}
+{#    </script>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="container">#}
+{#      <div class="row">#}
+{#        <div class="col-xs-6">#}
+{#          <canvas id="myChart" width="200" height="200"></canvas>#}
+{##}
+{#        </div>#}
+{#        <div class="col-xs-6">#}
+{#          <canvas id="myChartbar" width="200" height="200"></canvas>#}
+{#        </div>#}
+{#      </div>#}
+{#      <canvas id="canvas"></canvas>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+
+
+<html lang="en">
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+      <title>Document</title>
+      <script>
+        $(function () {/*from   w ww .  ja va2 s  . c o  m*/
+            var ctx = document.getElementById("layanan").getContext('2d');
+            var data = {
+                datasets: [{
+                    data: {{ data|safe }},
+                    backgroundColor: [
+                        '#3c8dbc',
+                        '#f56954',
+                        '#f39c12',
+                    ],
+                }],
+                labels: [
+                    {{ labels|safe }}
+                ]
+            };
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12
+                        }
+                    }
+                }
+            });
+            var ctx_2 = document.getElementById("layanan_subbagian").getContext('2d');
+            var data_2 = {
+                datasets: [{
+                    data: [10, 20, 30],
+                    backgroundColor: [
+                        '#3c8dbc',
+                        '#f56954',
+                        '#f39c12',
+                    ],
+                }],
+                labels: [
+                    'Request',
+                    'Layanan',
+                    'Problem'
+                ]
+            };
+            var myDoughnutChart_2 = new Chart(ctx_2, {
+                type: 'doughnut',
+                data: data_2,
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12
+                        }
+                    }
+                }
+            });
+        });
+
+      </script>
+   </head>
+   <body>
+      <div>
+         <canvas id="layanan" width="240px" height="240px"></canvas>
+      </div>
+      <div>
+         <canvas id="layanan_subbagian" width="240px" height="240px"></canvas>
+      </div>
+   </body>
+</html>
