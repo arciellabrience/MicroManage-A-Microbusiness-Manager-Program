@@ -103,6 +103,8 @@ Once the file has been installed, extracted, and opened in PyCharm, an interpret
   * 1.0
     * Initial setup of PyCharm localhost website.
 
+<i>Note: Uploaded codes are incomplete due to the quantity of files stored in multiple folders.</i>
+
 ### Authors and Contributions
 
 #### Arciella Brience C. Crisostomo [arciella_brience_crisostomo@dlsu.edu.ph]
