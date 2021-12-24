@@ -105,7 +105,7 @@ Once the file has been installed, extracted, and opened in PyCharm, an interpret
 
 <i>Note: Uploaded codes are incomplete due to the quantity of files stored in multiple folders.</i>
 
-### Authors and Contributions
+## Authors and Contributions
 
 #### Arciella Brience C. Crisostomo [arciella_brience_crisostomo@dlsu.edu.ph]
 * Back-end developer.
