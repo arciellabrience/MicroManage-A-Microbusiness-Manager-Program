@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+}
+body {
+    background-image: url(/static/images/background.jpg);
+    background-size: cover;
+    mix-blend-mode: normal;
+}
+
+h1 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 36px;
+    color: black;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+    color: #262626;
+}
+h3 {
+    text-align: center;
+    font-size: 20px;
+}
+p {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.column {
+    float: left;
+    /*min-height: 364px;*/
+    border: 1px solid black;
+}
+
+.hello-message{
+    font-size: 18px;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.linkbtn {
+    background-color: rgba(57, 57, 57, 0.9);
+    /*background-color: rgba(155, 220, 255, 0.88);*/
+    min-width: 400px;
+    border: none;
+    color: #e0e7e7;
+    padding: 16px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.25s;
+}
+
+.linkbtn:hover {
+    background-color: #a5a5a5;
+}
+
+.dropbtn {
+    background-color: rgba(57, 57, 57, 0.9);
+    min-width: 400px;
+    border: none;
+    color: #e0e7e7;
+    padding: 16px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.25s;
+    text-align: left;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-elements {
+    display: none;
+    position: absolute;
+    left: 100.2%;
+    top: 0;
+    background-color: rgba(57, 57, 57, 0.9);
+    min-width: 250px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    transition: 0.25s;
+}
+
+.dropdown-elements a {
+    font-family: "Montserrat", sans-serif;
+    color: #e0e7e7;
+    padding: 12px 15px;
+    text-decoration: none;
+    display: block;
+    transition: 0.25s;
+}
+
+.dropdown-elements a:hover {
+    background-color: #a5a5a5
+}
+
+.dropdown:hover .dropdown-elements {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #a5a5a5;
+}
+#datarep {
+    position: relative;
+    float: right;
+    border: 2px solid black;
+    max-height: 60%;
+    width: 73%;
+}

@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-image: url(/static/images/background.jpg);
+    background-size: cover;
+    mix-blend-mode: normal;
+}
+h1 {
+    color: white;
+    text-align: center;
+}
+h2 {
+    font-size: 1.85em;
+    font-weight: bolder;
+}
+input[type="text"], input[type="number"] {
+    display: block;
+    align-content: center;
+    width: 420px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #c4c4c4;
+    padding: 0.7rem;
+    margin-bottom: 1.75rem;
+    font-size: 0.875rem;
+}
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.inputs {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    z-index: -1;
+}
+.container li {
+    list-style-type: none;
+    text-align: center;
+}
+.section {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 190px;
+    z-index: -1;
+}
+
+.section:before {
+    content: "";
+    position: absolute;
+    background: url(/static/images/section.jpeg);
+    background-size: cover;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    filter: blur(2.5px);
+    z-index: -1;
+}
+.submit_btn2 {
+    margin: 15px auto;
+    font-family: Montserrat, sans-serif;
+    display: block;
+    align-items: center;
+    width: 100%;
+    background: rgba(35, 57, 117, 1);
+    color: white;
+    font-weight: 700;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+.submit_btn2:hover {
+    background: #2c4893;
+}
+#submit_btn {
+    margin-bottom: 60px;
+    font-family: Montserrat, sans-serif;
+    display: block;
+    align-items: center;
+    width: 100%;
+    background: rgba(35, 57, 117, 1);
+    color: white;
+    font-weight: 700;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+#submit_btn:hover {
+    background: #2c4893;
+}
+#messages{
+    color: red;
+}
